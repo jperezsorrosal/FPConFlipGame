@@ -34,7 +34,12 @@ object CoinFlipUtils {
         }
     }
 
-    def showNewGamePrompt(): Unit = println("\n(n)ew game, or (q)uit: ")
+    def showGameHistory(gameHistory: List[GameState]): Unit = gameHistory foreach printGameState
+    def showNewGamePrompt(gameHistory: List[GameState]): Unit = {
+        if (gameHistory.length != 0) println("\n=== GAME HISTORY ===")
+        showGameHistory(gameHistory)
+        println("\n(n)ew game, or (q)uit: ")
+    }
     def printNewGame(): Unit = println("\n=== NEW GAME ===")
     def printExitGame(): Unit = println("\n=== EXIT GAME ===")
 

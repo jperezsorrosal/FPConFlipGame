@@ -8,26 +8,26 @@ case class GameState(numFlips: Int, numCorrect: Int)
 
 object CoinFlip extends App {
 
-    newGameLoop()
+    newGameLoop(Nil)
 
     @tailrec
-    def newGameLoop(): Unit = {
-        showNewGamePrompt()
+    def newGameLoop(gamesHistory: List[GameState]): Unit = {
+        showNewGamePrompt(gamesHistory)
         val userInput = getUserInput()
 
         userInput match {
             case "N" =>
                 val r = Random
                 val s = GameState(0, 0)
-                mainLoop(s, r)
-                newGameLoop()
+                val lastGameState = mainLoop(s, r)
+                newGameLoop(lastGameState :: gamesHistory)
             case _ =>
                 printExitGame()
         }
     }
 
     @tailrec
-    def mainLoop(gameState: GameState, random: Random) {
+    def mainLoop(gameState: GameState, random: Random): GameState = {
 
         showPrompt()
         val userInput = getUserInput()
@@ -51,6 +51,7 @@ object CoinFlip extends App {
             case _   => {
                 printGameOver()
                 printGameState(gameState)
+                gameState
                 // return out of the recursion here
             }
         }
