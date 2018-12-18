@@ -8,9 +8,23 @@ case class GameState(numFlips: Int, numCorrect: Int)
 
 object CoinFlip extends App {
 
-    val r = Random
-    val s = GameState(0, 0)
-    mainLoop(s, r)
+    newGameLoop()
+
+    @tailrec
+    def newGameLoop(): Unit = {
+        showNewGamePrompt()
+        val userInput = getUserInput()
+
+        userInput match {
+            case "N" =>
+                val r = Random
+                val s = GameState(0, 0)
+                mainLoop(s, r)
+                newGameLoop()
+            case _ =>
+                printExitGame()
+        }
+    }
 
     @tailrec
     def mainLoop(gameState: GameState, random: Random) {

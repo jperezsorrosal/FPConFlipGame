@@ -34,4 +34,9 @@ object CoinFlipUtils {
         }
     }
 
+    def showNewGamePrompt(): Unit = println("\n(n)ew game, or (q)uit: ")
+    def printNewGame(): Unit = println("\n=== NEW GAME ===")
+    def printExitGame(): Unit = println("\n=== EXIT GAME ===")
+
+
 }
